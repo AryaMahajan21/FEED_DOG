@@ -44,17 +44,19 @@ function draw() {
 
   //write code to read fedtime value from the database 
   if(lastfed>=12){
-  
+    text("Last Fed: 12 PM", 350, 30)
   }else if(lastfed==0){
     text("Last Feed: 12 AM", 350, 30)
   }else{
     if (lastfed<12){
-      text("Last Fed: 12 PM", 350, 30)
+      text("Last Feed: 12 AM", 350, 30)
     }
   }
  
   //write code to display text lastFed time here
-text()
+  textSize(20)
+  fill("blue")
+  text("Last Fed: "+ lastfed, 300, 30)
  
   drawSprites();
 }
@@ -70,6 +72,12 @@ function feedDog(){
   dog.addImage(happyDog);
 
   //write code here to update food stock and last fed time
+  var food_stock_val = foodObj.getFoodStock()
+  if (food_stock_val <= 0){
+    foodObj.updateFoodStock(food_stock_val *0)
+  }else{
+    foodObj.updateFoodStock(food_stock_val *1)
+  }
 
 }
 
