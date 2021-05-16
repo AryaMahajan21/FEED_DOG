@@ -32,6 +32,7 @@ function setup() {
   feedDogButton.position(700,95)
   feedDogButton.mousePressed(feedDog)
 
+
   addFood=createButton("Add Food");
   addFood.position(800,95);
   addFood.mousePressed(addFoods);
@@ -74,14 +75,19 @@ function readStock(data){
 
 function feedDog(){
   dog.addImage(happyDog);
-
+  foodStock-=1;
   //write code here to update food stock and last fed time
   var food_stock_val = foodObj.getFoodStock()
   if (food_stock_val <= 0){
     foodObj.updateFoodStock(food_stock_val *0)
   }else{
-    foodObj.updateFoodStock(food_stock_val *1)
+    foodObj.updateFoodStock(food_stock_val - 1)
   }
+database.ref('/').update({
+  Food:foodObj.getFoodStock(),
+  FeedTime:hour()
+})
+
 
 }
 
