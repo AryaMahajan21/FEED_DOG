@@ -6,7 +6,7 @@ var feedDogButton;
 
 //create feed and lastFed variable here
 var feed;
-var lastfed;
+var lastFed;
 
 function preload(){
 sadDog=loadImage("Dog.png");
@@ -43,20 +43,24 @@ function draw() {
   foodObj.display();
 
   //write code to read fedtime value from the database 
-  if(lastfed>=12){
-    text("Last Fed: 12 PM", 350, 30)
-  }else if(lastfed==0){
-    text("Last Feed: 12 AM", 350, 30)
+  fedTime=database.ref('FeedTime'); 
+  fedTime.on("value",function(data){ lastFed=data.val(); });
+ fill("blue")
+ textSize(20)
+  if(lastFed>=12)
+  { text("Last Feed : "+ lastFed%12 + " PM", 300,30); 
+}else 
+if(lastFed==0){
+   text("Last Feed : 12 AM",300,30); 
   }else{
-    if (lastfed<12){
-      text("Last Feed: 12 AM", 350, 30)
+     
+    text("Last Feed : "+ lastFed + " AM", 300,30);
     }
-  }
  
   //write code to display text lastFed time here
-  textSize(20)
+ /* textSize(20)
   fill("blue")
-  text("Last Fed: "+ lastfed, 300, 30)
+  text("Last Fed: "+ lastFed, 300, 30)*/
  
   drawSprites();
 }
